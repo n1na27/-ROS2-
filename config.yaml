@@ -1,0 +1,53 @@
+# FRS触发系统配置文件
+
+# 系统配置
+system:
+  #module_b_path: "module_B/finger_control.py"  # 模块B程序路径
+  module_b_path: "module_B/finger_control.py"  # 模块B程序路径
+  #module_b_path: "modules/test_demo12.py"  # 模块B程序路径（可修改为"modules/try.py"）
+  trigger_cooldown: 10  # 触发冷却时间（秒），防止频繁触发
+  max_concurrent_triggers: 1  # 最大并发触发数
+  enable_logging: true  # 是否启用日志记录
+  log_level: "INFO"  # 日志级别：DEBUG, INFO, WARNING, ERROR
+
+# FRS人脸识别配置
+frs:
+  # 识别阈值
+  threshold_cosine: 0.8  # 余弦相似度阈值，用于判断人脸是否匹配
+  threshold_high_confidence: 0.5  # 高置信度阈值
+  gender_confidence_threshold: 0.7  # 性别识别置信度阈值
+  
+  # 稳定性参数
+  min_consecutive_frames: 5  # 最小连续帧数，需要连续5帧都检测到相同结果才会确认识别结果
+  identity_history_len: 7  # 身份历史记录长度
+  embedding_ema_alpha: 0.5  # 特征嵌入的指数移动平均系数
+  processing_interval: 3  # 处理间隔，每3帧处理一次
+  
+  # 跟踪参数
+  max_faces: 5  # 支持最大同屏人脸数
+  max_missed_frames: 15  # 最大丢失帧数（针对稳定跟踪的人脸）
+  max_missed_frames_new: 8  # 最大丢失帧数（针对新检测到的人脸）
+  min_detection_count: 3  # 最小检测次数
+
+# 摄像头配置
+camera:
+  camera_width: 320  # 摄像头捕获的图像宽度
+  camera_height: 240  # 摄像头捕获的图像高度
+  detection_width: 320  # 人脸检测时使用的图像宽度
+  detection_height: 240  # 人脸检测时使用的图像高度
+  #camera_index: 0  # 摄像头索引（0为默认摄像头）
+  camera_index: "rtsp://192.168.1.16:8554/live"
+
+# 显示配置
+display:
+  window_name: "FRS Trigger System"  # 显示窗口标题
+  window_width: 800  # 显示窗口宽度
+  window_height: 600  # 显示窗口高度
+  show_fps: true  # 是否显示FPS
+  show_face_count: true  # 是否显示人脸数量
+
+# 路径配置
+paths:
+  ref_image_dir: "Img"  # 参考人脸图像目录
+  model_dir: "models"  # 模型文件目录
+  log_dir: "logs"  # 日志文件目录
